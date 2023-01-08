@@ -1,0 +1,68 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:model="clr-namespace:KpopComebacks.Model"
+             xmlns:viewmodel="clr-namespace:KpopComebacks.ViewModel"
+             x:DataType="viewmodel:MonkeysViewModel"
+             x:Class="KpopComebacks.MainPage"
+             Title="{Binding IsNotBusy}">
+
+
+    <Grid
+        ColumnDefinitions="*"
+        ColumnSpacing="5"
+        RowDefinitions="*,Auto"
+        RowSpacing="0">
+        <VerticalStackLayout>
+            <Label Text="Heading"
+               FontSize="80">
+            </Label>
+            <Button Text="Get Monkeys" 
+                Command="{Binding GetMonkeysCommand}"
+                IsEnabled="{Binding IsNotBusy}"
+                HeightRequest="50"
+                Margin="0,30,0,0"
+                VerticalOptions="Start"/>
+        </VerticalStackLayout>
+
+        <CollectionView
+            Margin="0,200,0,0"
+            Grid.ColumnSpan="2"
+            ItemsSource="{Binding Monkeys}"
+            SelectionMode="None">
+            <CollectionView.ItemTemplate>
+                <DataTemplate x:DataType="model:Monkey">
+                    <Grid Padding="10">
+                        <Frame HeightRequest="125" Style="{StaticResource CardView}">
+                            <Grid Padding="0" ColumnDefinitions="0,*">
+                                <VerticalStackLayout
+                                    VerticalOptions="Start"
+                                    HorizontalOptions="Start"
+                                    Grid.Column="1"
+                                    Padding="10">
+                                    <Label Text="{Binding Name}" />
+                                </VerticalStackLayout>
+                                <VerticalStackLayout
+                                    VerticalOptions="Start"
+                                    HorizontalOptions="End"
+                                    Grid.Column="1"
+                                    Padding="0">
+                                    <Image Aspect="AspectFill" Source="{Binding ImageUrl}"
+                                       WidthRequest="125"
+                                       HeightRequest="125"
+                                       HorizontalOptions="End"/>
+                                </VerticalStackLayout>
+                                
+                            </Grid>
+                        </Frame>
+                    </Grid>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+
+
+    </Grid>
+
+
+
+</ContentPage>
